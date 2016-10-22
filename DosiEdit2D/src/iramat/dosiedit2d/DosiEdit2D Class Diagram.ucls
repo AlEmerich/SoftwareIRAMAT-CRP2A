@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.10" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="iramat.dosiedit2d.controler.GlobalControler" project="DosiEdit2D" 
+    file="/DosiEdit2D/src/iramat/dosiedit2d/controler/GlobalControler.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="49" width="196" x="514" y="269"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="iramat.dosiedit2d.view.View" project="DosiEdit2D" 
+    file="/DosiEdit2D/src/iramat/dosiedit2d/view/View.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="209" x="328" y="106"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="iramat.dosiedit2d.view.TabManager" project="DosiEdit2D" 
+    file="/DosiEdit2D/src/iramat/dosiedit2d/view/TabManager.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="184" x="187" y="172"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="iramat.dosiedit2d.view.Grid2D" project="DosiEdit2D" 
+    file="/DosiEdit2D/src/iramat/dosiedit2d/view/Grid2D.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="49" width="122" x="383" y="444"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="iramat.dosiedit2d.view.EditorGridPane" project="DosiEdit2D" 
+    file="/DosiEdit2D/src/iramat/dosiedit2d/view/EditorGridPane.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="49" width="236" x="-24" y="319"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="iramat.dosiedit2d.main.Main" project="DosiEdit2D" 
+    file="/DosiEdit2D/src/iramat/dosiedit2d/main/Main.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="49" width="155" x="556" y="17"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="iramat.dosiedit2d.model.Dosi2DModel" project="DosiEdit2D" 
+    file="/DosiEdit2D/src/iramat/dosiedit2d/model/Dosi2DModel.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="49" width="189" x="993" y="364"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="iramat.dosiseed.view.ForgeWindow" project="DosiSeed" 
+    file="/DosiSeed/src/iramat/dosiseed/view/ForgeWindow.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="179" x="-4" y="73"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="iramat.dosiseed.model.Material" project="DosiSeed" 
+    file="/DosiSeed/src/iramat/dosiseed/model/Material.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="188" x="799" y="440"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="iramat.dosiseed.model.AbstractModel" project="DosiSeed" 
+    file="/DosiSeed/src/iramat/dosiseed/model/AbstractModel.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="49" width="208" x="781" y="108"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="11">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="12" name="gridPane"/>      
+      <multiplicity id="13" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="14">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="15">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="16">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <association id="17">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="18" name="controler"/>      
+      <multiplicity id="19" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="20">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <association id="21">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="22" name="model"/>      
+      <multiplicity id="23" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="24">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <association id="25">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="26" name="forge"/>      
+      <multiplicity id="27" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="28">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="29">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="30">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="31">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <association id="32">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="33" name="controler"/>      
+      <multiplicity id="34" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="35">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="36">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <generalization id="37">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="10"/>  
+  </generalization>  
+  <association id="38">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="39" name="editor"/>      
+      <multiplicity id="40" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="41">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="42" name="tabManager"/>      
+      <multiplicity id="43" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="44">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="45">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="46">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <association id="47">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="48" name="controler"/>      
+      <multiplicity id="49" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="50">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="51" name="view"/>      
+      <multiplicity id="52" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="53">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <association id="54">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="55" name="ListOfMaterials"/>      
+      <multiplicity id="56" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="57">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="58" name="materialForDoseMapping"/>      
+      <multiplicity id="59" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
