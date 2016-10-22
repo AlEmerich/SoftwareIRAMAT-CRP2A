@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Rsrc-Class-Path: ./ gluegen-rt-natives-linux-amd64.jar jogl-all-native
+ s-linux-amd64.jar jogl-all-natives-macosx-universal.jar jogl-all-nati
+ ves-windows-amd64.jar gluegen-rt-natives-windows-i586.jar gluegen-gl.
+ jar jogl-all-natives-windows-i586.jar jogl-all-natives-linux-i586.jar
+  jdom-2.0.6.jar gluegen-rt-natives-linux-i586.jar gluegen-rt.jar glue
+ gen-rt-natives-windows-amd64.jar gluegen-rt-natives-macosx-universal.
+ jar jogl-all.jar
+Class-Path: .
+Rsrc-Main-Class: mainPackage.TopLevelInterface
+Main-Class: org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader
+

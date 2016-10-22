@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="DosiEdit">
+    <property environment="env"/>
+    <property name="CoarseFineUI.location" value="../CoarseFineUI"/>
+    <property name="ECLIPSE_HOME" value="../../../../usr/lib/eclipse"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+    <path id="jogl.userclasspath">
+        <pathelement location="../lib/jogamp-all-platforms/jar/gluegen.jar"/>
+        <pathelement location="../lib/jogamp-all-platforms/jar/gluegen-rt.jar"/>
+        <pathelement location="../lib/jogamp-all-platforms/jar/gluegen-rt-natives-linux-amd64.jar"/>
+        <pathelement location="../lib/jogamp-all-platforms/jar/gluegen-rt-natives-linux-i586.jar"/>
+        <pathelement location="../lib/jogamp-all-platforms/jar/gluegen-rt-natives-macosx-universal.jar"/>
+        <pathelement location="../lib/jogamp-all-platforms/jar/gluegen-rt-natives-windows-amd64.jar"/>
+        <pathelement location="../lib/jogamp-all-platforms/jar/gluegen-rt-natives-windows-i586.jar"/>
+        <pathelement location="../lib/jogamp-all-platforms/jar/jogl-all-natives-linux-amd64.jar"/>
+        <pathelement location="../lib/jogamp-all-platforms/jar/jogl-all-natives-linux-i586.jar"/>
+        <pathelement location="../lib/jogamp-all-platforms/jar/jogl-all-natives-macosx-universal.jar"/>
+        <pathelement location="../lib/jogamp-all-platforms/jar/jogl-all-natives-windows-amd64.jar"/>
+        <pathelement location="../lib/jogamp-all-platforms/jar/jogl-all-natives-windows-i586.jar"/>
+        <pathelement location="../lib/jogamp-all-platforms/jar/jogl-all.jar"/>
+    </path>
+    <path id="DosiEdit.classpath">
+        <pathelement location="bin"/>
+        <path refid="jogl.userclasspath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="DosiEdit.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
+        <ant antfile="build.xml" dir="${CoarseFineUI.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${CoarseFineUI.location}" inheritAll="false" target="build">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+    </target>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="DosiEdit">
+        <java classname="mainPackage.TopLevelInterface" failonerror="true" fork="yes">
+            <classpath refid="DosiEdit.classpath"/>
+        </java>
+    </target>
+</project>
