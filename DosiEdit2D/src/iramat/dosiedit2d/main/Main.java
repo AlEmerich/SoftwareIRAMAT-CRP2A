@@ -1,31 +1,15 @@
 package iramat.dosiedit2d.main;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-
 import iramat.dosiedit2d.controler.GlobalControler;
 import iramat.dosiedit2d.model.Dosi2DModel;
 import iramat.dosiedit2d.view.View;
 import iramat.dosiseed.controler.ForgeControler;
 import iramat.dosiseed.model.AbstractModel;
 
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
+import java.io.*;
 
 /**
  * The main class software.
@@ -75,64 +59,60 @@ public class Main
 		}
 		else
 		{
-			final JFrame startPanel = new JFrame("DosiEdit2D interface");
-			startPanel.setPreferredSize(new Dimension(600,500));
-			startPanel.setResizable(false);
-			startPanel.setLocationRelativeTo(null);
-			GridLayout layout = new GridLayout(0, 1);
-			layout.setVgap(30);
-			startPanel.setLayout(layout);
-			JLabel title = new JLabel("<html><div style='text-align: center;'><b>DosiEdit2D interface</b><br>" +
+			intro("DosiEdit2D interface", "<html><div style='text-align: center;'><b>DosiEdit2D interface</b><br>" +
 					"Editing Pilot Text File (PTF) for DosiVox 2D Software</html>");
-
-			title.setFont(new Font("Arial", Font.PLAIN, 40));
-			title.setHorizontalAlignment(SwingConstants.CENTER);
-			startPanel.add(title);
-			JButton newProject = new JButton("Create a new project", View.createImageIcon("/resources/tab_new.png"));
-			newProject.setFont(new Font("Arial",Font.PLAIN, 24));
-			newProject.setIconTextGap(100);
-			newProject.setHorizontalAlignment(SwingConstants.LEFT);
-			newProject.addActionListener(new ActionListener()
-			{
-				@Override
-				public void actionPerformed(ActionEvent e)
-				{
-					Main.init(new Dosi2DModel());
-					startPanel.dispose();
-				}
-			});
-			startPanel.add(newProject);
-
-			JButton openProject = new JButton("Load a saved project", View.createImageIcon("/resources/Folder-Open.png"));
-			openProject.setFont(new Font("Arial",Font.PLAIN, 24));
-			openProject.setIconTextGap(100);
-			openProject.setHorizontalAlignment(SwingConstants.LEFT);
-			openProject.addActionListener(new ActionListener()
-			{
-				@Override
-				public void actionPerformed(ActionEvent e)
-				{
-					JFileChooser FileChooser = new JFileChooser();
-					final FileNameExtensionFilter filter = new FileNameExtensionFilter("File saved by DosiEdit2D", new String[] { "ddvi" });
-					FileChooser.setFileFilter(filter);
-
-					final int returnVal = FileChooser.showOpenDialog(startPanel);
-					if (returnVal == 0)
-					{
-						init(load(FileChooser.getSelectedFile().getAbsolutePath()));
-						startPanel.dispose();
-					}
-				}
-			});
-			startPanel.add(openProject);
-			startPanel.pack();
-			startPanel.validate();
-			startPanel.setVisible(true);
 			model = new Dosi2DModel();
 		}
 
 		model.setChanged();
 		model.notifyObservers();
+	}
+
+	public static void intro(String titleframe, String labelhtml)
+	{
+		final JFrame startPanel = new JFrame(titleframe);
+		startPanel.setPreferredSize(new Dimension(600,500));
+		startPanel.setResizable(false);
+		startPanel.setLocationRelativeTo(null);
+		GridLayout layout = new GridLayout(0, 1);
+		layout.setVgap(30);
+		startPanel.setLayout(layout);
+		JLabel title = new JLabel(labelhtml);
+
+		title.setFont(new Font("Arial", Font.PLAIN, 40));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		startPanel.add(title);
+		JButton newProject = new JButton("Create a new project", View.createImageIcon("/resources/tab_new.png"));
+		newProject.setFont(new Font("Arial",Font.PLAIN, 24));
+		newProject.setIconTextGap(100);
+		newProject.setHorizontalAlignment(SwingConstants.LEFT);
+		newProject.addActionListener(e -> {
+			Main.init(new Dosi2DModel());
+			startPanel.dispose();
+		});
+		startPanel.add(newProject);
+
+		JButton openProject = new JButton("Load a saved project", View.createImageIcon("/resources/Folder-Open.png"));
+		openProject.setFont(new Font("Arial",Font.PLAIN, 24));
+		openProject.setIconTextGap(100);
+		openProject.setHorizontalAlignment(SwingConstants.LEFT);
+		openProject.addActionListener(e -> {
+			JFileChooser FileChooser = new JFileChooser();
+			final FileNameExtensionFilter filter = new FileNameExtensionFilter("File saved by "+titleframe, new String[] { "ddvi" });
+			FileChooser.setFileFilter(filter);
+
+			final int returnVal = FileChooser.showOpenDialog(startPanel);
+			if (returnVal == 0)
+			{
+				init(load(FileChooser.getSelectedFile().getAbsolutePath()));
+				startPanel.dispose();
+			}
+		});
+		startPanel.add(openProject);
+		startPanel.pack();
+		startPanel.validate();
+		startPanel.setVisible(true);
+
 	}
 
 	/**

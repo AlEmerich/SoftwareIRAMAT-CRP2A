@@ -1,52 +1,21 @@
 package mainPackage;
 
-import interfaceObject.EditorPane;
-import interfaceObject.ForgeWindow;
-import interfaceObject.MainInfoVoxel;
-import interfaceObject.OngletManagement;
-import interfaceObject.TopMenu;
-import interfaceObject.WelcomePanel;
+import com.jogamp.opengl.GLAutoDrawable;
+import com.jogamp.opengl.util.Animator;
+import interfaceObject.*;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Toolkit;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JEditorPane;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
-import com.jogamp.opengl.GLAutoDrawable;
-import com.jogamp.opengl.util.Animator;
 
 /**
  * <b>Main class. Handling all the components of this software, in terms of OpenGL and Swing.</b>
@@ -323,7 +292,7 @@ public class TopLevelInterface extends JFrame implements ActionListener, Materia
 		case Alpha:
 			suffix = "_a";
 			break;
-		case Bêta:
+		case Beta:
 			suffix = "_b";
 			break;
 		case Gamma:
@@ -510,54 +479,38 @@ public class TopLevelInterface extends JFrame implements ActionListener, Materia
         modalWaiting.setResizable(false);
         modalWaiting.setDefaultCloseOperation(0);
         modalWaiting.add(saveLab);
-        final Thread t = new Thread() {
-            @Override
-            public void run() {
-                ObjectOutputStream oos = null;
-                try {
-                    final File file = new File(filePath);
-                    oos = new ObjectOutputStream(new FileOutputStream(file));
-                    final SaveBox sb = new SaveBox();
-                    saveLab.setText("Saving Voxel");
-                    sb.setVox(TopLevelInterface.this.ExternalVoxelizedWorld);
-                    saveLab.setText("Saving materials");
-                    sb.setListMaterial(TopLevelInterface.this.ListOfMaterials);
-                    saveLab.setText("Saving components");
-                    sb.setListComponent(TopLevelInterface.this.ListOfComponent);
-                    sb.setPath(file.getAbsolutePath());
-                    oos.writeObject(sb);
-                    TopLevelInterface.this.CURRENT_PATH = file.getAbsolutePath();
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error during the reading of the file", 0);
-                    if (oos != null) {
-                        try {
-                            oos.close();
-                            modalWaiting.setVisible(false);
-                        }
-                        catch (IOException e2) {
-                            e2.printStackTrace();
-                            JOptionPane.showMessageDialog(null, e2.getMessage(), "Error during the closing of the file reader", 0);
-                        }
+        final Thread t = new Thread(() -> {
+            ObjectOutputStream oos = null;
+            try {
+                final File file = new File(filePath);
+                oos = new ObjectOutputStream(new FileOutputStream(file));
+                final SaveBox sb = new SaveBox();
+                saveLab.setText("Saving Voxel");
+                sb.setVox(TopLevelInterface.this.ExternalVoxelizedWorld);
+                saveLab.setText("Saving materials");
+                sb.setListMaterial(TopLevelInterface.this.ListOfMaterials);
+                saveLab.setText("Saving components");
+                sb.setListComponent(TopLevelInterface.this.ListOfComponent);
+                sb.setPath(file.getAbsolutePath());
+                oos.writeObject(sb);
+                TopLevelInterface.this.CURRENT_PATH = file.getAbsolutePath();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Error during the reading of the file", 0);
+                if (oos != null) {
+                    try {
+                        oos.close();
+                        modalWaiting.setVisible(false);
                     }
-                    return;
-                }
-                finally {
-                    if (oos != null) {
-                        try {
-                            oos.close();
-                        }
-                        catch (IOException e2) {
-                            e2.printStackTrace();
-                            JOptionPane.showMessageDialog(null, e2.getMessage(), "Error during the closing of the file reader", 0);
-                        }
-                        finally
-                        {
-                        	modalWaiting.setVisible(false);
-                        }
+                    catch (IOException e2) {
+                        e2.printStackTrace();
+                        JOptionPane.showMessageDialog(null, e2.getMessage(), "Error during the closing of the file reader", 0);
                     }
                 }
+                return;
+            }
+            finally {
                 if (oos != null) {
                     try {
                         oos.close();
@@ -568,11 +521,24 @@ public class TopLevelInterface extends JFrame implements ActionListener, Materia
                     }
                     finally
                     {
-                    	modalWaiting.setVisible(false);
+                        modalWaiting.setVisible(false);
                     }
                 }
             }
-        };
+            if (oos != null) {
+                try {
+                    oos.close();
+                }
+                catch (IOException e2) {
+                    e2.printStackTrace();
+                    JOptionPane.showMessageDialog(null, e2.getMessage(), "Error during the closing of the file reader", 0);
+                }
+                finally
+                {
+                    modalWaiting.setVisible(false);
+                }
+            }
+        });
         t.start();
         modalWaiting.setVisible(true);
         if (index != -1) {
@@ -671,53 +637,14 @@ public class TopLevelInterface extends JFrame implements ActionListener, Materia
     static /* synthetic */ void access$4(final TopLevelInterface topLevelInterface, final ArrayList<Material> listOfMaterials) {
         topLevelInterface.ListOfMaterials = (ArrayList<Material>)listOfMaterials;
     }
-    
+
     /**
      * The very first function of the software.
      * @param args the argument of the software.
      */
     public static void main(final String[] args) {
     	System.err.println("args "+args.length);
-    	if (args.length == 0) {  
-            try {  
-                // re-launch the app itselft with VM option passed  
 
-            	final Process proc = Runtime.getRuntime().exec("java -Dsun.awt.noerasebackground=true -jar "
-            			+TopLevelInterface.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()+" test\n");
-    			
-            	new Thread(new Runnable() {
-            	    public void run() {
-            	     BufferedReader input = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-            	     String line = null; 
-
-            	     try {
-            	        while ((line = input.readLine()) != null)
-            	            System.out.println(line);
-            	     } catch (IOException e) {
-            	            e.printStackTrace();
-            	     }
-            	    }
-            	}).start();
-            	
-    			proc.waitFor();
-    			
-            } catch (IOException ioe) {  
-            	System.err.println("error");
-                ioe.printStackTrace();  
-            } catch (URISyntaxException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InterruptedException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}  
-            
-            
-            System.exit(0);  
-        } 
-    	
         try {
             UIManager.LookAndFeelInfo[] installedLookAndFeels;
             for (int length = (installedLookAndFeels = UIManager.getInstalledLookAndFeels()).length, i = 0; i < length; ++i) {
@@ -736,6 +663,44 @@ public class TopLevelInterface extends JFrame implements ActionListener, Materia
             catch (InstantiationException ex2) {}
             catch (IllegalAccessException ex3) {}
             catch (UnsupportedLookAndFeelException ex4) {}
+        }
+
+    	if (args.length == 0) {  
+            try {  
+                // re-launch the app itself with VM option passed
+
+            	final Process proc = Runtime.getRuntime().exec("java -Dsun.awt.noerasebackground=true -jar "
+            			+TopLevelInterface.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()+" test\n");
+    			
+            	new Thread(() -> {
+                 BufferedReader input = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+                 String line;
+
+                 try {
+                    while ((line = input.readLine()) != null)
+                        System.out.println(line);
+                 } catch (IOException e) {
+                        e.printStackTrace();
+                 }
+                }).start();
+            	
+    			proc.waitFor();
+    			
+            } catch (IOException ioe) {  
+            	System.err.println("error");
+                ioe.printStackTrace();  
+            } catch (URISyntaxException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}  
+            
+            
+            System.exit(0);
         }
        
         new TopLevelInterface();

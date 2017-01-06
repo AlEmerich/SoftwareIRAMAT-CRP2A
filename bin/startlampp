@@ -1,3 +1,0 @@
-#!/bin/bash
-sudo service mysql stop
-echo 11235813 | sudo -S /opt/lampp/lampp start

@@ -1,38 +1,21 @@
 package iramat.dosiseed.view;
 
-import iramat.dosiseed.controler.GlobalControler;
-import iramat.dosiseed.controler.MaxRangeControler;
-import iramat.dosiseed.controler.NbParticleControler;
-import iramat.dosiseed.controler.NbVoxelControler;
-import iramat.dosiseed.controler.ProductionCutControler;
-import iramat.dosiseed.controler.WfControler;
+import iramat.dosiseed.controler.*;
 import iramat.dosiseed.model.AbstractModel;
 import iramat.dosiseed.model.Material;
 import iramat.dosiseed.model.Model;
-
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-
 import mainPackage.Component;
 import mainPackage.PrimaryParticles;
 import util.Couple;
 import util.Vector3d;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import java.awt.*;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 public class GlobalInfoPanel extends JPanel implements Observer
 {
@@ -83,7 +66,7 @@ public class GlobalInfoPanel extends JPanel implements Observer
 		firstLine.add(nbPrimaryParticleField);
 
 		firstLine.add(new JLabel("<html><b>Emitted rays: </b></html>"));
-		PrimaryParticles[] tab = {PrimaryParticles.Alpha,PrimaryParticles.Bêta,PrimaryParticles.Gamma};
+		PrimaryParticles[] tab = {PrimaryParticles.Alpha,PrimaryParticles.Beta,PrimaryParticles.Gamma};
 		this.typeParticleComboBox = new JComboBox<PrimaryParticles>(tab);
 		firstLine.add(typeParticleComboBox);
 		firstPart.add(firstLine);

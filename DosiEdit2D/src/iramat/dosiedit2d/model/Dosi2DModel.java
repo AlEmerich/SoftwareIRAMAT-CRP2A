@@ -1,11 +1,10 @@
 package iramat.dosiedit2d.model;
 
-import iramat.dosiseed.model.AbstractModel;
-import iramat.dosiseed.model.ColoredMaterial;
-import iramat.dosiseed.model.GrainFraction;
-import iramat.dosiseed.model.Incoherence;
+import iramat.dosiseed.model.*;
 import iramat.dosiseed.model.Incoherence.Inc;
-import iramat.dosiseed.model.Material;
+import mainPackage.Component;
+import mainPackage.PrimaryParticles;
+import util.Couple;
 
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -13,11 +12,6 @@ import java.awt.image.WritableRaster;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import util.Couple;
-
-import mainPackage.Component;
-import mainPackage.PrimaryParticles;
 
 public class Dosi2DModel extends AbstractModel
 {
@@ -87,7 +81,7 @@ public class Dosi2DModel extends AbstractModel
 		this.emissionProcess = "2D std";
 		this.materialForDoseMapping = null;
 		this.nbParticleEmitted = 1;
-		this.primaryParticle = PrimaryParticles.Bêta;
+		this.primaryParticle = PrimaryParticles.Beta;
 		this.radioElementSim = new boolean[4];
 		for(int i=0;i<4;i++)
 			radioElementSim[i] = false;

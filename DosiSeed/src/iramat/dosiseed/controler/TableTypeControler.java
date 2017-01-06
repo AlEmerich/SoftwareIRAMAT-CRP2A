@@ -40,8 +40,8 @@ public class TableTypeControler extends DisablingTableListener
 						cell = toJoin[0]+".";
 						for(int i=1;i<toJoin.length;i++)
 							cell += toJoin[i];
-						
-						float nb = fraction.getValueOfType(row, col);
+
+						float nb = fraction.getValueOfType(row, col-1);
 						try
 						{
 							nb = Float.parseFloat(cell);

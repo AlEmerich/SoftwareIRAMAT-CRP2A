@@ -1,9 +1,7 @@
 package mainPackage;
 
+import javax.swing.*;
 import java.io.IOException;
-
-import javax.swing.JOptionPane;
-import javax.swing.JProgressBar;
 
 /**
  * This object represents the external object of the object. It is a {@link VoxelizedObject} with all values DosiVox need to performs. 
@@ -58,7 +56,7 @@ public class ExternalVoxelizedWorld extends VoxelizedObject
         this.clockValue = 1;
         this.materialForMap = -1;
         this.emissionFromGrain = false;
-        this.primaryParticle = PrimaryParticles.B\u00eata;
+        this.primaryParticle = PrimaryParticles.Beta;
         this.momentumX = 0.0f;
         this.momentumY = 0.0f;
         this.momentumZ = 0.0f;
@@ -334,7 +332,7 @@ public class ExternalVoxelizedWorld extends VoxelizedObject
             case Alpha: {
                 return 0;
             }
-            case B\u00eata: {
+            case Beta: {
                 return 1;
             }
             case Gamma: {

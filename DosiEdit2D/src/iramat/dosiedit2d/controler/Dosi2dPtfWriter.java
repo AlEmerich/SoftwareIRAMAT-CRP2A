@@ -4,15 +4,14 @@ import iramat.dosiedit2d.model.Dosi2DModel;
 import iramat.dosiedit2d.model.VoxelObject;
 import iramat.dosiseed.model.ColoredMaterial;
 import iramat.dosiseed.model.Material;
+import mainPackage.Component;
+import util.Couple;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import mainPackage.Component;
-import util.Couple;
 
 /**
  * Class which generates the pilot text file interpreted by DosiVox2D software.
@@ -37,7 +36,7 @@ public class Dosi2dPtfWriter
 			File file = new File(path);
 			FileWriter writer = new FileWriter(file);
 			
-			writer.write(pathWithoutTxt+" # results file name\n\n");
+			writer.write(file.getName()+"_rtf # results file name\n\n");
 			writer.write(model.getNbParticlesEmitted()+" "+model.getClockValue()+" "+model.getNbThread());
 			writer.write(" # ( x 1000 ) emitted particles, clock value (%), number of CPU core used (multithreading)\n");
 			String particle = "";
@@ -46,7 +45,7 @@ public class Dosi2dPtfWriter
 				case Alpha:
 					particle = "1";
 					break;
-				case Bêta:
+				case Beta:
 					particle = "2";
 					break;
 				case Gamma:
@@ -55,7 +54,7 @@ public class Dosi2dPtfWriter
 					default:
 						break;
 			}
-			String emission = "";
+			String emission;
 			if(model.getEmissionProcess().equals("2D std"))
 				emission = "0";
 			else if(model.getEmissionProcess().equals("3D"))
@@ -70,7 +69,7 @@ public class Dosi2dPtfWriter
 			int th = (radioBoolElement[2] ? 1 : 0);
 			int ud = (radioBoolElement[3] ? 1 : 0);
 			writer.write(k+" "+u+" "+th+" "+ud);
-			writer.write(" #element emitter (1 for uranium series, 2 for thorium series, 3 for potassium, 0 for User Defined)\n");
+			writer.write(" #element emitter (in the order K, U, Th, used-defined : 1 if simulated, 0 if not simulated)\n");
 			writer.write(model.getMaxRange()+" "+model.getProductionCut());
 			writer.write("   # particle average range in mm; cut in range value in mm (= resolution for the creation of secondary particles\n");
 			Material m = model.getMaterialForDoseMapping();

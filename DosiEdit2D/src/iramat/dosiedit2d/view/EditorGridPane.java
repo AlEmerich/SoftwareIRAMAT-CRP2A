@@ -2,11 +2,7 @@ package iramat.dosiedit2d.view;
 
 import interfaceObject.Grid2D.RadMode;
 import interfaceObject.ZoomAndPanListener;
-import iramat.dosiedit2d.controler.ClockValueControler;
-import iramat.dosiedit2d.controler.GlobalControler;
-import iramat.dosiedit2d.controler.NbThreadControler;
-import iramat.dosiedit2d.controler.NbVoxel2DControler;
-import iramat.dosiedit2d.controler.SizeVoxelControler;
+import iramat.dosiedit2d.controler.*;
 import iramat.dosiedit2d.model.Dosi2DModel;
 import iramat.dosiedit2d.view.TextureCellRenderer.CheckListItem;
 import iramat.dosiseed.controler.AbstractFieldControler;
@@ -18,53 +14,19 @@ import iramat.dosiseed.model.ColoredMaterial;
 import iramat.dosiseed.model.Material;
 import iramat.dosiseed.view.FormattedLabelField;
 import iramat.dosiseed.view.TripleFormattedField.XYZ;
+import mainPackage.PrimaryParticles;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.JSplitPane;
-import javax.swing.JToggleButton;
-import javax.swing.JToolBar;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import mainPackage.PrimaryParticles;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Class which handles the view of the editor tab of the project. It handles the grid, the fields to
@@ -286,11 +248,11 @@ public class EditorGridPane extends JPanel implements ListSelectionListener, Obs
 		final JToolBar toolbar = new JToolBar();
 		final JToggleButton penButtonTool = new JToggleButton(View.createImageIcon("/resources/pen.png"));
 		penButtonTool.setActionCommand("pen mode selection");
-		penButtonTool.setToolTipText("Modyfing voxel per voxel");
+		penButtonTool.setToolTipText("Modifying voxel per voxel");
 		penButtonTool.addActionListener(this.gridPane);
 		final JToggleButton recButtonTool = new JToggleButton(View.createImageIcon("/resources/rectangle.png"));
 		recButtonTool.setActionCommand("rectangle mode selection");
-		recButtonTool.setToolTipText("Modyfing voxels intersects with the selection rectangle");
+		recButtonTool.setToolTipText("Modifying voxels intersects with the selection rectangle");
 		recButtonTool.addActionListener(this.gridPane);
 		final JButton fillLayerButtonTool = new JButton(View.createImageIcon("/resources/fillLayer.png"));
 		fillLayerButtonTool.setActionCommand("fill the selected layer");
@@ -363,15 +325,15 @@ public class EditorGridPane extends JPanel implements ListSelectionListener, Obs
 		JLabel particleLab = new JLabel("<html><b>Primary particle emitted: </b></html>");
 		this.particleCombo = new JComboBox<>();
 		this.particleCombo.addItem(PrimaryParticles.Alpha);
-		this.particleCombo.addItem(PrimaryParticles.Bêta);
+		this.particleCombo.addItem(PrimaryParticles.Beta);
 		this.particleCombo.addItem(PrimaryParticles.Gamma);
 		particlePan.add(particleLab);
 		particlePan.add(this.particleCombo);
 		EastNorthPane.add(particlePan,gbc);
 		gbc.gridy = 4;
 		JLabel emissionLab = new JLabel("<html><b>Emission process: </b></html>");
-		this.emissionProcessCombo = new JComboBox<String>();
-		this.emissionProcessCombo.addItem("2D Stub");
+		this.emissionProcessCombo = new JComboBox<>();
+		this.emissionProcessCombo.addItem("2D Partial");
 		this.emissionProcessCombo.addItem("3D");
 		this.emissionProcessCombo.addItem("2D real");
 		JPanel emissionPan = new JPanel();
@@ -400,7 +362,7 @@ public class EditorGridPane extends JPanel implements ListSelectionListener, Obs
 		gbc.gridy = 7;
 		EastNorthPane.add(this.cutRangeValueField,gbc);
 		JPanel doseMappingPan = new JPanel();
-		this.doseMappingCombo = new JComboBox<ColoredMaterial>();
+		this.doseMappingCombo = new JComboBox<>();
 		this.doseMappingCombo.setRenderer(new ComboMaterialRender());
 		this.doseMappingCombo.setPreferredSize(new Dimension(200,25));
 		doseMappingPan.add(new JLabel("<html><b>Material for dose mapping</b></html>"));
@@ -471,8 +433,8 @@ public class EditorGridPane extends JPanel implements ListSelectionListener, Obs
 		JPanel info = initRaditionPan(globalControl);
 		info.setPreferredSize(new Dimension(450,270));
 		EastSouthPane.add(info,gbcS);
-		this.listModelMaterial = new DefaultListModel<TextureCellRenderer.CheckListItem>();
-		(this.listMaterial = new JList<TextureCellRenderer.CheckListItem>(this.listModelMaterial))
+		this.listModelMaterial = new DefaultListModel<>();
+		(this.listMaterial = new JList<>(this.listModelMaterial))
 				.setCellRenderer(new TextureCellRenderer<Object>());
 		this.listMaterial.addListSelectionListener(this);
 		this.listMaterial.addMouseListener(this);
@@ -636,7 +598,7 @@ public class EditorGridPane extends JPanel implements ListSelectionListener, Obs
 		AbstractFieldControler cl = new ClockValueControler((Dosi2DModel) model);
 		this.clockValueField.getField().addKeyListener(cl);
 		this.clockValueField.getField().addFocusListener(cl);
-		AbstractFieldControler ntl = (new NbThreadControler((Dosi2DModel) model));
+		AbstractFieldControler ntl = (new NbThreadControler(model));
 		this.nbThreadField.getField().addKeyListener(ntl);
 		this.nbThreadField.getField().addFocusListener(ntl);
 		this.radioElementsCheck[0].addActionListener(control);

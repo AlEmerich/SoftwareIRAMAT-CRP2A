@@ -3,13 +3,12 @@ package iramat.dosiseed.controler;
 import iramat.dosiseed.model.GrainFraction;
 import iramat.dosiseed.model.Material;
 import iramat.dosiseed.model.Model;
+import mainPackage.Component;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-
-import mainPackage.Component;
 
 public class DosiSeedWriterPTF
 {
@@ -20,7 +19,7 @@ public class DosiSeedWriterPTF
 			File file = new File(path);
 			FileWriter writer = new FileWriter(file);
 			
-			writer.write(file.getName()+" # results file name\n\n");
+			writer.write(file.getName()+"_rtf # results file name\n\n");
 			writer.write("			#********** particle emission and properties **********#\n\n");
 			writer.write(model.getNbParticlesEmitted()+" # number of thousand particles emmited\n");
 			writer.write(model.getPrimaryParticle().ordinal()+" # 0=alpha, 1=beta, 2=gamma\n");

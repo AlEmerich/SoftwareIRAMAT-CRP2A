@@ -11,30 +11,19 @@ import iramat.dosiseed.model.AbstractModel;
 import iramat.dosiseed.model.ColoredMaterial;
 import iramat.dosiseed.model.Incoherence;
 import iramat.dosiseed.model.Material;
+import mainPackage.PrimaryParticles;
+import mainPackage.SaveBox;
+import util.Couple;
 
-import java.awt.BorderLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import util.Couple;
-
-import mainPackage.PrimaryParticles;
-import mainPackage.SaveBox;
 
 /**
  * The global controller of the project. It handles project action, like saving,
@@ -88,7 +77,7 @@ public class GlobalControler implements ActionListener
     /**
      * Function which load a serializable object indicates by the filename path. 
      * This function is not generic, it loads a {@link SaveBox} object.
-     * @param filename the path to the file to load.
+     * @param filePath the path to the file to load.
      */
 	public void load(final String filePath)
 	{
@@ -119,40 +108,28 @@ public class GlobalControler implements ActionListener
 	 */
 	public void save(final String path) {
 		
-		final Thread t = new Thread() {
-            @Override
-            public void run() {
-                ObjectOutputStream oos = null;
-                try {
-                	
-                	final File file = new File(path);
-                    oos = new ObjectOutputStream(new FileOutputStream(file));
-                    
-                    oos.writeObject(GlobalControler.this.model);
-                    GlobalControler.this.model.setCURRENT_PATH(file.getAbsolutePath());
-                    GlobalControler.this.model.notifyObservers();
-                }
-                catch (FileNotFoundException e) 
-                {
-                    e.printStackTrace();
-                }
-                catch (IOException e2) 
-                {
-                    e2.printStackTrace();
-                    JOptionPane.showMessageDialog(null, e2.getMessage(), "Error during the reading of the file", 0);
-                }
-                finally 
-                {
-                    if (oos != null) {
-                        try {
-                            oos.close();
-                        }
-                        catch (IOException e4) {
-                            e4.printStackTrace();
-                            JOptionPane.showMessageDialog(null, e4.getMessage(), "Error during the closing of the file reader", 0);
-                        }
-                    }
-                }
+		final Thread t = new Thread(() -> {
+            ObjectOutputStream oos = null;
+            try {
+
+                final File file = new File(path);
+                oos = new ObjectOutputStream(new FileOutputStream(file));
+
+                oos.writeObject(GlobalControler.this.model);
+                GlobalControler.this.model.setCURRENT_PATH(file.getAbsolutePath());
+                GlobalControler.this.model.notifyObservers();
+            }
+            catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+            }
+            catch (IOException e2)
+            {
+                e2.printStackTrace();
+                JOptionPane.showMessageDialog(null, e2.getMessage(), "Error during the reading of the file", 0);
+            }
+            finally
+            {
                 if (oos != null) {
                     try {
                         oos.close();
@@ -162,10 +139,19 @@ public class GlobalControler implements ActionListener
                         JOptionPane.showMessageDialog(null, e4.getMessage(), "Error during the closing of the file reader", 0);
                     }
                 }
-                
-                JOptionPane.showMessageDialog(view, "Project saved !");
             }
-        };
+            if (oos != null) {
+                try {
+                    oos.close();
+                }
+                catch (IOException e4) {
+                    e4.printStackTrace();
+                    JOptionPane.showMessageDialog(null, e4.getMessage(), "Error during the closing of the file reader", 0);
+                }
+            }
+
+            JOptionPane.showMessageDialog(view, "Project saved !");
+        });
         t.start();
 	}
 	
@@ -238,7 +224,7 @@ public class GlobalControler implements ActionListener
 					return;
 				}
 				// check if no radio-element is selected
-				boolean[] radio = ((Dosi2DModel) model).getWhichRadioelementIsSimulated();
+				boolean[] radio = model.getWhichRadioelementIsSimulated();
 				if(radio[0] == false && radio[1] == false && radio[2] == false && radio[3] == false)
 				{
 					final int result = View.yesnocancel(view, "No radio-element is selected. Continue ?");

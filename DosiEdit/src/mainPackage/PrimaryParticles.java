@@ -8,9 +8,9 @@ package mainPackage;
 public enum PrimaryParticles
 {
     Alpha("Alpha", 0), 
-    B\u00eata("B\u00eata", 1), 
+    Beta("Beta", 1),
     Gamma("Gamma", 2);
     
-    private PrimaryParticles(final String name, final int ordinal) {
+    PrimaryParticles(final String name, final int ordinal) {
     }
 }

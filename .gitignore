@@ -1,0 +1,12 @@
+DosiEdit/bin/
+DosiEdit2D/bin/
+DosiSeed/bin/
+
+DosiEdit/DosiEdit.iml
+DosiSeed/DosiSeed.iml
+
+DosiEdit/out/
+DosiEdit2D/out/
+DosiSeed/out/
+
+DosiEdit2D/.idea/

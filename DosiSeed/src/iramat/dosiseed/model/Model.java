@@ -1,15 +1,14 @@
 package iramat.dosiseed.model;
 
 import iramat.dosiseed.model.Incoherence.Inc;
+import mainPackage.Component;
+import mainPackage.PrimaryParticles;
+import util.Couple;
+import util.Vector3d;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import util.Couple;
-import util.Vector3d;
-import mainPackage.Component;
-import mainPackage.PrimaryParticles;
 
 public class Model extends AbstractModel {
 
@@ -87,7 +86,7 @@ public class Model extends AbstractModel {
 		fineFraction = new GrainFraction(false);
 		medium = true;
 		nbParticleEmitted = 1;
-		primaryParticle = PrimaryParticles.Bêta;
+		primaryParticle = PrimaryParticles.Beta;
 		radioElementSim = new boolean[4];
 		for(int i=0;i<4;i++)
 			radioElementSim[i] = false;

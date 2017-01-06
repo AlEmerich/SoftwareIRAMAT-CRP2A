@@ -1,12 +1,12 @@
 package iramat.dosiedit2d.controler;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import iramat.dosiedit2d.model.Dosi2DModel;
 import iramat.dosiedit2d.view.DoubleFormattedField;
 import iramat.dosiedit2d.view.EditorGridPane;
 import iramat.dosiseed.view.TripleFormattedField.XYZ;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * Controller of the size of voxel field in view and model.
@@ -94,6 +94,7 @@ public class SizeVoxelControler implements KeyListener
 
 		model.setRealDimX(x);
 		model.setRealDimY(y);
+		model.setExcludeEdge(model.isExcludeEdge());
 	}
 
 }

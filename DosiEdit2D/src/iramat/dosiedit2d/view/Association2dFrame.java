@@ -4,34 +4,17 @@ import iramat.dosiedit2d.view.ImagePanel.ImageBackground;
 import iramat.dosiseed.model.ColoredMaterial;
 import iramat.dosiseed.model.Material;
 import iramat.dosiseed.view.TripleFormattedField;
+import util.Couple;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import util.Couple;
 
 /**
  * This class generate a JDialog frame when the user want to load a 2D-scan. 
@@ -98,7 +81,7 @@ public class Association2dFrame extends JDialog implements ActionListener, ListS
     /**
      * The view field to set radiation to the material.
      */
-    private TripleFormattedField RadField;
+    private ExtensibleFormattedPanel RadField;
     
     /**
      * The view of {@link #listModelGreyLevels}
@@ -125,7 +108,7 @@ public class Association2dFrame extends JDialog implements ActionListener, ListS
      * @param parent the parent JFrame.
      * @param title the title of the window.
      * @param modal true if the window maintains focus, false if not.
-     * @param loader  The load which have read the file once to know what and how many grey levels there are.
+     * @param scan  The load which have read the file once to know what and how many grey levels there are.
      * @param listM list of available material.
      * @see JDialog
      */
@@ -187,7 +170,10 @@ public class Association2dFrame extends JDialog implements ActionListener, ListS
         CenterPanel.add(MatPanel);
         final JPanel RadAndButPanel = new JPanel();
         RadAndButPanel.setPreferredSize(new Dimension(200, 200));
-        RadAndButPanel.add(this.RadField = new TripleFormattedField(new JLabel(""), "U", "Th", "K", false));
+        this.RadField = new ExtensibleFormattedPanel(new JLabel("Change reference values"),"U","Th","K", false);
+
+        this.RadField.addFields("Ud", false);
+        RadAndButPanel.add(this.RadField);
         final JButton AssocButton = new JButton("<html>Associate material<br>with grey level</html>");
         AssocButton.setActionCommand("Associate");
         AssocButton.setAlignmentX(0.5f);
@@ -196,17 +182,17 @@ public class Association2dFrame extends JDialog implements ActionListener, ListS
         CenterPanel.add(RadAndButPanel);
         NorthPanelPanel.add(CenterPanel, "Center");
         final JPanel EastPanel = new JPanel(new BorderLayout());
-        this.listModelGreyLevels = new DefaultListModel<Integer>();
+        this.listModelGreyLevels = new DefaultListModel<>();
         final Iterator<Integer> it = this.scan.getShadesOfGray().iterator();
         int j = 0;
         while (it.hasNext()) {
             this.listModelGreyLevels.insertElementAt(it.next(), j++);
         }
-        (this.JListGreyLevels = new JList<Integer>(this.listModelGreyLevels)).setSelectedIndex(0);
+        (this.JListGreyLevels = new JList<>(this.listModelGreyLevels)).setSelectedIndex(0);
         EastPanel.add(new JLabel("<html>grey<br>levels         Associations"), "North");
         EastPanel.add(new JScrollPane(this.JListGreyLevels, 20, 30), "West");
-        this.listModelAssoc = new DefaultListModel<Couple<Material, Integer>>();
-        (this.JListAssociations = new JList<Couple<Material, Integer>>(this.listModelAssoc)).setSelectedIndex(0);
+        this.listModelAssoc = new DefaultListModel<>();
+        (this.JListAssociations = new JList<>(this.listModelAssoc)).setSelectedIndex(0);
         EastPanel.add(new JScrollPane(this.JListAssociations, 20, 30), "Center");
         final JButton ClearAssocButton = new JButton("Clear the selected association");
         ClearAssocButton.setActionCommand("Clear association");
@@ -216,25 +202,17 @@ public class Association2dFrame extends JDialog implements ActionListener, ListS
         NorthPanelPanel.add(EastPanel, "East");
         final JPanel EndPanel = new JPanel();
         final JButton validateAllButton = new JButton("Validate All");
-        validateAllButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                if (Association2dFrame.this.checkAssociations()) {
-                	Association2dFrame.this.valid = true;
-                    Association2dFrame.this.dispose();
-                }
-                else {
-                    JOptionPane.showMessageDialog(null, "Associations missing");
-                }
+        validateAllButton.addActionListener(e -> {
+            if (Association2dFrame.this.checkAssociations()) {
+                Association2dFrame.this.valid = true;
+                Association2dFrame.this.dispose();
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Associations missing");
             }
         });
         final JButton CancelButton = new JButton("Cancel");
-        CancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                Association2dFrame.this.dispose();
-            }
-        });
+        CancelButton.addActionListener(e -> Association2dFrame.this.dispose());
         EndPanel.setBorder(BorderFactory.createRaisedBevelBorder());
         EndPanel.setBackground(Color.darkGray);
         EndPanel.add(CancelButton);
@@ -262,10 +240,12 @@ public class Association2dFrame extends JDialog implements ActionListener, ListS
             float u = 0.0f;
             float th = 0.0f;
             float k = 0.0f;
+            float ud = 0.0f;
             try {
                 u = this.RadField.getValue(TripleFormattedField.XYZ.X);
                 th = this.RadField.getValue(TripleFormattedField.XYZ.Y);
                 k = this.RadField.getValue(TripleFormattedField.XYZ.Z);
+                ud = Float.parseFloat(this.RadField.getFieldFromList(0).getText().replaceAll("\\s+", ""));
             }
             catch (Exception ex) {}
             final Material m = this.JListMaterial.getSelectedValue();
@@ -275,12 +255,12 @@ public class Association2dFrame extends JDialog implements ActionListener, ListS
             m.setCurrentUraniumValue(u);
             m.setCurrentThoriumValue(th);
             m.setCurrentPotassiumValue(k);
-            m.setCurrentUserDefinedValue(u);
+            m.setCurrentUserDefinedValue(ud);
             m.setRefUraniumValue(u);
             m.setRefThoriumValue(th);
             m.setRefPotassiumValue(k);
-            m.setRefUserDefinedValue(u);
-            this.listModelAssoc.addElement(new Couple<Material, Integer>(m, this.JListGreyLevels.getSelectedValue()));
+            m.setRefUserDefinedValue(ud);
+            this.listModelAssoc.addElement(new Couple<>(m, this.JListGreyLevels.getSelectedValue()));
         }
         if (e.getActionCommand().equals("Clear association") && !this.JListAssociations.isSelectionEmpty()) {
             this.listModelAssoc.removeElement(this.JListAssociations.getSelectedValue());
