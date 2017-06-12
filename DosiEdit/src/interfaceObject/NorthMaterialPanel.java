@@ -34,6 +34,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -54,6 +55,22 @@ public class NorthMaterialPanel extends JPanel implements ListSelectionListener,
 {
     private static final long serialVersionUID = 8407607594843160047L;
     
+    public static class ComponentListRenderer extends JLabel implements ListCellRenderer<Couple<Component, Float>>
+    {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public java.awt.Component getListCellRendererComponent(JList<? extends Couple<Component, Float>> list,
+				Couple<Component, Float> value, int index, boolean isSelected, boolean cellHasFocus) {
+			
+			setText(value.getValeur1().getName()+ "               " + value.getValeur1().getDensity() + "                         " + value.getValeur2());
+			return this;
+		}
+    }
     /**
      * Listeners.
      */
@@ -166,6 +183,7 @@ public class NorthMaterialPanel extends JPanel implements ListSelectionListener,
         final JLabel Description = new JLabel("Component     Density (g/cm3)    (%)");
         this.listModelComponentInMaterial = new DefaultListModel<Couple<mainPackage.Component, Float>>();
         (this.JlistCompInMat = new JList<Couple<mainPackage.Component, Float>>(this.listModelComponentInMaterial)).addListSelectionListener(this);
+        this.JlistCompInMat.setCellRenderer(new ComponentListRenderer());
         (this.FactoryScroll = new JScrollPane(this.JlistCompInMat)).setMaximumSize(new Dimension(300, 100));
         final JPanel tmpPan = new JPanel();
         final JPanel listPan = new JPanel(new BorderLayout());

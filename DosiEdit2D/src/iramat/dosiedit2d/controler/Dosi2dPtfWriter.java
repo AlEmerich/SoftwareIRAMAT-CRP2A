@@ -81,9 +81,9 @@ public class Dosi2dPtfWriter
 					"n = dose mapping only for material of index n); exclude edge effect zones " +
 					"for dose results (recommanded)\n\n");
 			
-			writer.write((model.getListOfComponent().size() - 18)+"   #number of new components defined\n\n");
+			writer.write((model.getListOfComponent().size() - 18)+"   #number of new components defined\n");
 			for(int i = 18;i<model.getListOfComponent().size();i++)
-				writer.write(model.getListOfComponent().get(i)+" \n");
+				writer.write("\n"+model.getListOfComponent().get(i)+" \n");
 			
 			List<ColoredMaterial> usedMaterial = new ArrayList<ColoredMaterial>();
 			for(int y=0;y<model.getGrid().size();y++)

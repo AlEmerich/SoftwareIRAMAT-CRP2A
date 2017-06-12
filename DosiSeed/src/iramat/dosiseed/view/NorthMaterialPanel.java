@@ -42,6 +42,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import mainPackage.Component;
+import interfaceObject.NorthMaterialPanel.ComponentListRenderer;
 import util.Couple;
 
 public class NorthMaterialPanel extends JPanel implements Observer, ListSelectionListener, KeyListener
@@ -168,7 +169,7 @@ public class NorthMaterialPanel extends JPanel implements Observer, ListSelectio
 		final JLabel Description = new JLabel("Component     Density (g/cm3)    (%)");
 		this.listModelComponentInMaterial = new DefaultListModel<Couple<Component, Float>>();
 		(this.JlistCompInMat = new JList<Couple<Component, Float>>(this.listModelComponentInMaterial)).addListSelectionListener(this);
-
+		this.JlistCompInMat.setCellRenderer(new ComponentListRenderer());
 		(this.FactoryScroll = new JScrollPane(this.JlistCompInMat)).setMaximumSize(new Dimension(300, 100));
 		final JPanel tmpPan = new JPanel(new BorderLayout());
 		final JPanel listPan = new JPanel(new BorderLayout());

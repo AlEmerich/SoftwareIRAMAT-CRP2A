@@ -1,0 +1,8 @@
+com.jogamp.nativewindow
+com.jogamp.nativewindow.awt
+com.jogamp.nativewindow.egl
+com.jogamp.nativewindow.macosx
+com.jogamp.nativewindow.swt
+com.jogamp.nativewindow.util
+com.jogamp.nativewindow.windows
+com.jogamp.nativewindow.x11

@@ -258,6 +258,8 @@ public class ScanningWindow extends JDialog implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+		if(this.currentImage == null)
+			return;
 		BufferedImage img = this.currentImage.getImage();
 		for(int y=0;y<img.getHeight();y++)
 			for(int x=0;x<img.getWidth();x++)

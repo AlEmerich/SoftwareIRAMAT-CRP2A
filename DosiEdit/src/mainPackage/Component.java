@@ -204,7 +204,8 @@ public class Component implements Serializable
     @Override
     public String toString() {
         String result = "";
-        result = String.valueOf(this.Name) + " " +this.getFormulaAsString().replaceAll("\\s+", "")+ " " + this.density;
+        result = this.density + " " + String.valueOf(this.Name) + " " + this.ChemicalFormula.getNbAtomInIt() + " "
+        		+this.getFormulaAsString().replaceAll("\\s+", " ");
         return result;
     }
     
@@ -266,9 +267,7 @@ public class Component implements Serializable
             String result = "";
             for (final Couple<PeriodicTable, Integer> couple : this.description) {
                 result = String.valueOf(result) + " "+ couple.getValeur1()+" ";
-                if (couple.getValeur2() != 1) {
-                    result = String.valueOf(result) + " "+ couple.getValeur2()+" ";
-                }
+                result = String.valueOf(result) + " "+ couple.getValeur2()+" ";
             }
             return result;
         }
