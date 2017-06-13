@@ -664,43 +664,14 @@ public class TopLevelInterface extends JFrame implements ActionListener, Materia
             catch (IllegalAccessException ex3) {}
             catch (UnsupportedLookAndFeelException ex4) {}
         }
-
-    	if (args.length == 0) {  
+        if (args.length == 0) {  
             try {  
-                // re-launch the app itself with VM option passed
-
-            	final Process proc = Runtime.getRuntime().exec("java -Dsun.awt.noerasebackground=true -jar "
-            			+TopLevelInterface.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()+" test\n");
-    			
-            	new Thread(() -> {
-                 BufferedReader input = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-                 String line;
-
-                 try {
-                    while ((line = input.readLine()) != null)
-                        System.out.println(line);
-                 } catch (IOException e) {
-                        e.printStackTrace();
-                 }
-                }).start();
-            	
-    			proc.waitFor();
-    			
+                // re-launch the app itselft with VM option passed  
+                Runtime.getRuntime().exec(new String[] {"java", "-Dsun.awt.noerasebackground=true", "-jar", "DosiEdit.jar","launch"});  
             } catch (IOException ioe) {  
-            	System.err.println("error");
                 ioe.printStackTrace();  
-            } catch (URISyntaxException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InterruptedException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}  
-            
-            
-            System.exit(0);
+            }  
+            System.exit(0);  
         }
        
         new TopLevelInterface();
