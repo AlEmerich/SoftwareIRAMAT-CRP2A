@@ -130,7 +130,7 @@ public class Association2dFrame extends JDialog implements ActionListener, ListS
     private void initComponents() {
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setSize(new Dimension(500, 200));
+        
         this.setResizable(false);
         JPanel NorthPanelPanel = new JPanel(new BorderLayout());
         NorthPanelPanel.add(Box.createRigidArea(new Dimension(0, 5)), "North");
@@ -169,10 +169,12 @@ public class Association2dFrame extends JDialog implements ActionListener, ListS
         MatPanel.add(addEmptyMatButton, "South");
         CenterPanel.add(MatPanel);
         final JPanel RadAndButPanel = new JPanel();
-        RadAndButPanel.setPreferredSize(new Dimension(200, 200));
-        this.RadField = new ExtensibleFormattedPanel(new JLabel("Change reference values"),"U","Th","K", false);
+        RadAndButPanel.setPreferredSize(new Dimension(300, 200));
+        this.RadField = new ExtensibleFormattedPanel(new JLabel(""),"U","Th","K", false);
 
         this.RadField.addFields("Ud", false);
+        RadAndButPanel.add(Box.createRigidArea(new Dimension(0,50)));
+        RadAndButPanel.add(new JLabel("Change reference values"));
         RadAndButPanel.add(this.RadField);
         final JButton AssocButton = new JButton("<html>Associate material<br>with grey level</html>");
         AssocButton.setActionCommand("Associate");

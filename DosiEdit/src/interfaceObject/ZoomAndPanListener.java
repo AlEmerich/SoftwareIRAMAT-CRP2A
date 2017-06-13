@@ -61,19 +61,20 @@ public class ZoomAndPanListener implements MouseListener, MouseMotionListener, M
     
     @Override
     public void mousePressed(final MouseEvent e) {
-        if (e.getButton() == 3) {
+        if (e.getButton() == MouseEvent.BUTTON3) {
             this.dragStartScreen = e.getPoint();
             this.dragEndScreen = null;
             this.isRightButton = true;
         }
-        if (e.getButton() == 2) {
-            this.coordTransform = new AffineTransform();
+        if (e.getButton() == MouseEvent.BUTTON2) {
+            //this.coordTransform = new AffineTransform();
         }
+        
     }
     
     @Override
     public void mouseReleased(final MouseEvent e) {
-        if (e.getButton() == 3) {
+        if (e.getButton() == MouseEvent.BUTTON3) {
             this.isRightButton = false;
         }
     }

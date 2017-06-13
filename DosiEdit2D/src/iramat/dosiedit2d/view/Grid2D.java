@@ -123,6 +123,8 @@ public class Grid2D extends JPanel implements MouseListener, MouseMotionListener
 		this.addMouseWheelListener(this.zoomManager);
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
+		
+		this.validate();
 	}
 
 	/**
@@ -145,9 +147,9 @@ public class Grid2D extends JPanel implements MouseListener, MouseMotionListener
 	 * Draw the black strips of the grid, and all voxels.
 	 * @param g the current context graphics.
 	 */
-	private void drawGrid(final Graphics g) {
-		final Graphics2D g2d = (Graphics2D)g;
-		final RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	private void drawGrid(Graphics g) {
+		Graphics2D g2d = (Graphics2D)g;
+		RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		rh.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		g2d.setRenderingHints(rh);
 		g2d.setTransform(this.zoomManager.getCoordTransform());
@@ -155,9 +157,11 @@ public class Grid2D extends JPanel implements MouseListener, MouseMotionListener
 		g2d.setColor(Color.black);
 		for (int y = 0; y < this.grid.size(); ++y) {
 			for (int x = 0; x < this.grid.get(y).size(); ++x) {
-				final VoxelObject vox = this.grid.get(y).get(x);
+				VoxelObject vox = this.grid.get(y).get(x);
 				if (y == 0) {
-					g.drawString(new StringBuilder(String.valueOf(x)).toString(), (int)(x * vox.width + vox.width / 3.0f), (int)(y * vox.height - vox.height / 3.0f));
+					g2d.drawString(new StringBuilder(String.valueOf(x)).toString(), 
+							(int)(x * vox.width + vox.width / 3.0f), 
+							(int)(y * vox.height - vox.height / 3.0f));
 				}
 				if (vox != null && vox.isVisible(this.getVisibleRect(), this.zoomManager.getCoordTransform())) {
 					vox.draw(g2d, this.showMode,this.exclusion);
@@ -166,7 +170,9 @@ public class Grid2D extends JPanel implements MouseListener, MouseMotionListener
 				g2d.setStroke(new BasicStroke(2.0f));
 				g2d.draw(vox);
 				if (x == 0) {
-					g.drawString(new StringBuilder(String.valueOf(y)).toString(), (int)(x * vox.width - vox.width), (int)(y * vox.height + vox.height / 2.0f));
+					g2d.drawString(new StringBuilder(String.valueOf(y)).toString(), 
+							(int)(x * vox.width - vox.width), 
+							(int)(y * vox.height + vox.height / 2.0f));
 				}
 			}
 		}
@@ -180,7 +186,7 @@ public class Grid2D extends JPanel implements MouseListener, MouseMotionListener
 		if(grid != null)
 		{
 			this.setBackground(Color.white);
-			g.setFont(this.font);
+			g2d.setFont(this.font);
 			this.drawGrid(g);
 		}
 		if (this.cursorRectSelection != null && this.currentMaterial != null) {
@@ -213,7 +219,6 @@ public class Grid2D extends JPanel implements MouseListener, MouseMotionListener
 	public void mouseClicked(MouseEvent arg0)
 	{
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -227,14 +232,14 @@ public class Grid2D extends JPanel implements MouseListener, MouseMotionListener
 	public void mouseExited(MouseEvent arg0)
 	{
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
 		Point2D pTransform = null;
-        try {
+		try {
             pTransform = this.zoomManager.transformPoint(e.getPoint());
         }
         catch (NoninvertibleTransformException e2) {
@@ -259,10 +264,10 @@ public class Grid2D extends JPanel implements MouseListener, MouseMotionListener
 	{
 		if (this.cursorRectSelection != null) {
             this.controler.checkAndFill(this.cursorRectSelection, this.currentMaterial);
-            this.cursorRectSelection = null;
-            
+            this.cursorRectSelection = null;  
             this.repaint();
         }
+		
         this.leftButtonPushed = false;
 	}
 
@@ -291,24 +296,7 @@ public class Grid2D extends JPanel implements MouseListener, MouseMotionListener
 	@Override
 	public void mouseMoved(MouseEvent e)
 	{
-		Point2D pTransform = null;
-        try {
-            pTransform = this.zoomManager.transformPoint(e.getPoint());
-        }
-        catch (NoninvertibleTransformException e2) {
-            e2.printStackTrace();
-        }
-        if (this.leftButtonPushed) {
-            if (this.editorMode == 0) {
-                this.controler.checkAndFill(pTransform.getX(), pTransform.getY(), this.currentMaterial);
-                
-            }
-            else {
-                this.cursorRectSelection.width = (float)pTransform.getX() - this.cursorRectSelection.x;
-                this.cursorRectSelection.height = (float)pTransform.getY() - this.cursorRectSelection.y;
-            }
-        }
-        this.repaint();
+		
 	}
 
 	@Override
@@ -347,8 +335,7 @@ public class Grid2D extends JPanel implements MouseListener, MouseMotionListener
 		Dosi2DModel model = (Dosi2DModel) obs;
 		this.exclusion = model.isExcludeEdge();
 		this.grid = model.getGrid();
-		this.revalidate();
-		this.repaint();
+		//this.repaint();
 	}
 
 	/**
@@ -358,7 +345,7 @@ public class Grid2D extends JPanel implements MouseListener, MouseMotionListener
 	public void changeMode(RadMode mode)
 	{
 		this.showMode = mode;
-		this.repaint();
+		//this.repaint();
 	}
 
 	/**

@@ -322,7 +322,7 @@ public class View extends JFrame implements Observer
 	{
 		AbstractModel model = (AbstractModel) o;
 		this.setTitle("DosiEdit2D - Editing Pilot Text File (PTF) for DosiVox2D Software ("+model.getCURRENT_PATH()+")");
-		this.repaint();
+		//this.repaint();
 	}
 }
 
