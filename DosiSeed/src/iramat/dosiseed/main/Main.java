@@ -39,17 +39,26 @@ public class Main {
     public static void main(final String[] args) {
         try {
             UIManager.LookAndFeelInfo[] installedLookAndFeels;
+            boolean found = false;
             for (int length = (installedLookAndFeels = UIManager.getInstalledLookAndFeels()).length, i = 0; i < length; ++i) {
                 final UIManager.LookAndFeelInfo info = installedLookAndFeels[i];
                 if ("Nimbus".equals(info.getName())) {
                     UIManager.setLookAndFeel(info.getClassName());
+                    found = true;
                     break;
                 }
+            }
+            
+            if(!found)
+            {
+            	UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            	System.err.println("Default look and feel");
             }
         }
         catch (Exception e) {
             try {
-                UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+            	UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            	System.err.println("Default look and feel");
             }
             catch (ClassNotFoundException ex) {}
             catch (InstantiationException ex2) {}

@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -647,17 +646,25 @@ public class TopLevelInterface extends JFrame implements ActionListener, Materia
 
         try {
             UIManager.LookAndFeelInfo[] installedLookAndFeels;
+            boolean found = false;
             for (int length = (installedLookAndFeels = UIManager.getInstalledLookAndFeels()).length, i = 0; i < length; ++i) {
                 final UIManager.LookAndFeelInfo info = installedLookAndFeels[i];
                 if ("Nimbus".equals(info.getName())) {
                     UIManager.setLookAndFeel(info.getClassName());
+                    found = true;
                     break;
                 }
+            }
+            if(!found)
+            {
+            	UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            	System.err.println("Default look and feel");
             }
         }
         catch (Exception e) {
             try {
-                UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                System.out.println("Default look and feel");
             }
             catch (ClassNotFoundException ex) {}
             catch (InstantiationException ex2) {}
