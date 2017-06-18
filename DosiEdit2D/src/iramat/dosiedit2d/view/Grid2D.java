@@ -335,7 +335,7 @@ public class Grid2D extends JPanel implements MouseListener, MouseMotionListener
 		Dosi2DModel model = (Dosi2DModel) obs;
 		this.exclusion = model.isExcludeEdge();
 		this.grid = model.getGrid();
-		//this.repaint();
+		this.repaint();
 	}
 
 	/**
@@ -345,7 +345,7 @@ public class Grid2D extends JPanel implements MouseListener, MouseMotionListener
 	public void changeMode(RadMode mode)
 	{
 		this.showMode = mode;
-		//this.repaint();
+		this.repaint();
 	}
 
 	/**

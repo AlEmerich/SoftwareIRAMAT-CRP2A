@@ -671,7 +671,7 @@ public class TopLevelInterface extends JFrame implements ActionListener, Materia
             catch (IllegalAccessException ex3) {}
             catch (UnsupportedLookAndFeelException ex4) {}
         }
-        if (args.length == 0) {  
+        /*if (args.length == 0) {  
             try {  
                 // re-launch the app itselft with VM option passed  
                 Runtime.getRuntime().exec(new String[] {"java", "-Dsun.awt.noerasebackground=true", "-jar", "DosiEdit.jar","launch"});  
@@ -680,7 +680,7 @@ public class TopLevelInterface extends JFrame implements ActionListener, Materia
             }  
             System.exit(0);  
         }
-       
+       */
         new TopLevelInterface();
     }
     

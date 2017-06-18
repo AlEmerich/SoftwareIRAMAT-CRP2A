@@ -165,6 +165,11 @@ public class Component implements Serializable
         return this.ChemicalFormula.toString();
     }
     
+    public String getFormulaAsPTFString()
+    {
+    	return this.ChemicalFormula.toPTFString();
+    }
+    
     /**
      * @return the formula as an ArrayList.
      */
@@ -199,6 +204,14 @@ public class Component implements Serializable
                 this.addAtomToFormula(atom, Integer.parseInt(form[++i]));
             }
         }
+    }
+    
+    public String toPTFString()
+    {
+    	String result = "";
+        result = String.valueOf(this.Name) + " " + this.density + " " + this.ChemicalFormula.getNbAtomInIt() + " "
+        		+this.getFormulaAsPTFString().replaceAll("\\s+", " ");
+        return result;
     }
     
     @Override
@@ -262,12 +275,20 @@ public class Component implements Serializable
             return this.description.size();
         }
         
+        public String toPTFString()
+        {
+        	String result = "";
+            for (final Couple<PeriodicTable, Integer> couple : this.description) {
+                result += " "+ couple.getValeur1()+" "+ couple.getValeur2()+" ";
+            }
+            return result;
+        }
+        
         @Override
         public String toString() {
             String result = "";
             for (final Couple<PeriodicTable, Integer> couple : this.description) {
-                result = String.valueOf(result) + " "+ couple.getValeur1()+" ";
-                result = String.valueOf(result) + " "+ couple.getValeur2()+" ";
+                result += ""+couple.getValeur1()+couple.getValeur2();
             }
             return result;
         }

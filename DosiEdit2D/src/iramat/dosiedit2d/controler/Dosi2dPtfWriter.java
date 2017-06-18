@@ -83,7 +83,9 @@ public class Dosi2dPtfWriter
 			
 			writer.write((model.getListOfComponent().size() - 18)+"   #number of new components defined\n");
 			for(int i = 18;i<model.getListOfComponent().size();i++)
-				writer.write("\n"+model.getListOfComponent().get(i)+" \n");
+			{
+				writer.write("\n"+i+" "+model.getListOfComponent().get(i).toPTFString()+" \n");
+			}
 			
 			List<ColoredMaterial> usedMaterial = new ArrayList<ColoredMaterial>();
 			for(int y=0;y<model.getGrid().size();y++)
@@ -93,7 +95,7 @@ public class Dosi2dPtfWriter
 					if(!usedMaterial.contains(mat))
 						usedMaterial.add(mat);
 				}
-			writer.write(usedMaterial.size()+"  #number of materials used\n");
+			writer.write("\n"+usedMaterial.size()+"  #number of materials used\n");
 			int indexOfMaterial=0;
 			for(ColoredMaterial mat : usedMaterial)
 			{			
