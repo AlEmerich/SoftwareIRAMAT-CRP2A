@@ -472,7 +472,7 @@ public class EditorGridPane extends JPanel implements ListSelectionListener, Obs
 		InfoPan.setBorder(BorderFactory.createTitledBorder(BorderFactory.createRaisedBevelBorder(),"Material and radioactivity"));
 		final JPanel namePan = new JPanel(new BorderLayout());
 		(this.nameLabel = new JLabel("Name:    ")).setAlignmentX(0.5f);
-		this.CurrentRadValues = new ExtensibleLabelizedPanel(new JLabel("Radiation: "), "U", "Th", "K", null);
+		this.CurrentRadValues = new ExtensibleLabelizedPanel(new JLabel("<html>Radiaoactive<br> Element Contents:</html> "), "U", "Th", "K", null);
 		this.CurrentRadValues.addLabel("Ud");
 		namePan.add(this.nameLabel, "North");
 		namePan.add(this.CurrentRadValues, "East");

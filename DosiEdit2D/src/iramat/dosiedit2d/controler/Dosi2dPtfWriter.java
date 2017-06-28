@@ -29,7 +29,10 @@ public class Dosi2dPtfWriter
 	public static File generate(Dosi2DModel model,final String path)
 	{
 		if(path.equals(""))
+		{
+			System.err.println("Path was null");
 			return null;
+		}
 		try
 		{
 			String pathWithoutTxt = path.substring(0,path.lastIndexOf("."));
@@ -97,20 +100,24 @@ public class Dosi2dPtfWriter
 				}
 			writer.write("\n"+usedMaterial.size()+"  #number of materials used\n");
 			int indexOfMaterial=0;
-			for(ColoredMaterial mat : usedMaterial)
+			for(int i=0; i < model.getListOfMaterial().size(); i++)
 			{			
-				writer.write("\n"+(indexOfMaterial++)+"   # material index\n");
-				writer.write(mat.getName()+" # material name\n");
-				writer.write(mat.getUsedDensity()+" # dry density (g/cm3)\n");
-				writer.write(mat.getWaterFraction()+" # water content, % of dry mass\n");
-				writer.write(mat.getListComponent().size()+" # number of components\n");
-				for(Couple<Component,Float> couple: mat.getListComponent())
+				ColoredMaterial mat = (ColoredMaterial) model.getListOfMaterial().get(i);
+				if(usedMaterial.contains(mat))
 				{
-					int indexComponent = model.getListOfComponent().indexOf(couple.getValeur1());
-					
-					writer.write(indexComponent+" "+couple.getValeur2()+" ");
+					writer.write("\n"+(indexOfMaterial++)+"   # material index\n");
+					writer.write(mat.getName()+" # material name\n");
+					writer.write(mat.getUsedDensity()+" # dry density (g/cm3)\n");
+					writer.write(mat.getWaterFraction()+" # water content, % of dry mass\n");
+					writer.write(mat.getListComponent().size()+" # number of components\n");
+					for(Couple<Component,Float> couple: mat.getListComponent())
+					{
+						int indexComponent = model.getListOfComponent().indexOf(couple.getValeur1());
+						
+						writer.write(indexComponent+" "+couple.getValeur2()+" ");
+					}
+					writer.write(" # component index, % of dry mass\n");
 				}
-				writer.write(" # component index, % of dry mass\n");
 			}
 			
 			writer.write("\n"+model.getGrid().get(0).size()+"    "+model.getGrid().size()
@@ -158,6 +165,7 @@ public class Dosi2dPtfWriter
 			
 		} catch (IOException e)
 		{
+			System.err.println("Exception on writing PTF: "+e.getMessage());
 			return null;
 		}
 	}
