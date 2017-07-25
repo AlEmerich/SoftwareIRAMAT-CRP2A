@@ -136,7 +136,7 @@ public class Dosi2dPtfWriter
 				for(int x=0;x<model.getGrid().get(y).size();x++)
 				{
 					VoxelObject vox = model.getGrid().get(y).get(x);
-					int indexMaterial = usedMaterial.indexOf(vox.getMaterial());
+					int indexMaterial = model.getListOfMaterial().indexOf(vox.getMaterial());
 					writer.write(indexMaterial+" ");
 					potassium += vox.getPotassium()+" ";
 					uranium += vox.getUranium()+" ";
