@@ -58,6 +58,7 @@ public class NorthMaterialPanel extends JPanel implements Observer, ListSelectio
 		{
 			JLabel label = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 			label.setText(value.getName());
+			
 			return label;
 		}
 		

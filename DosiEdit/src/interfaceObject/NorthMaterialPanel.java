@@ -21,6 +21,7 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -57,7 +58,8 @@ public class NorthMaterialPanel extends JPanel implements ListSelectionListener,
     
     public static class ComponentListRenderer extends JLabel implements ListCellRenderer<Couple<Component, Float>>
     {
-
+    	private DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+    	
 		/**
 		 * 
 		 */
@@ -67,8 +69,10 @@ public class NorthMaterialPanel extends JPanel implements ListSelectionListener,
 		public java.awt.Component getListCellRendererComponent(JList<? extends Couple<Component, Float>> list,
 				Couple<Component, Float> value, int index, boolean isSelected, boolean cellHasFocus) {
 			
-			setText(value.getValeur1().getName()+ "               " + value.getValeur1().getDensity() + "                         " + value.getValeur2());
-			return this;
+			JLabel label = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+			label.setText(value.getValeur1().getName()+ "               " + value.getValeur1().getDensity() + "                         " + value.getValeur2());
+			
+			return label;
 		}
     }
     /**
